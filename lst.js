@@ -113,7 +113,7 @@ const pageControls = {
   displayTestimonial: function (randomNumberBtw, numberOfStars) {
     document.getElementById('testimonial').innerHTML = `
       <div class="image-cont">
-        <img class="image" data-src="${testimonialData[randomNumberBtw].imageSrc}" alt="${testimonialData[randomNumberBtw].fullName}">
+        <img class="image" src="${testimonialData[randomNumberBtw].imageSrc}" alt="${testimonialData[randomNumberBtw].fullName}">
       </div>
       <div class="test-cont">
         <ul class="star-list">
