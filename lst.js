@@ -31,100 +31,40 @@ const testimonialData = [{
 
 
 
-const getRandomTestimonial = (max) => {
-  randomNum = Math.floor(Math.random() * max);
-  return randomNum;
+const getRandomTestimonial = () => {
+  let arrayLength = testimonialData.length; // 5
+  let randomNum = Math.floor(Math.random() * arrayLength);
+  return randomNum; // returns random number ranging from 0-4
 }
-
-const getStarRating = (randomNumber) => {
-  stars = testimonialData[randomNumber].rating;
-  return stars;
-}
-
-const renderStars = (stars) => {
-  const starList = document.querySelector('.star-list');
-  if (stars === 1) {
-    starList.innerHTML = `
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-    `
-  } else if (stars === 2) {
-    starList.innerHTML = `
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-    `
-  } else if (stars === 3) {
-    starList.innerHTML = `
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-    `
-  } else if (stars === 4) {
-    starList.innerHTML = `
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-    `
-  } else if (stars === 5) {
-    starList.innerHTML = `
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-      <li>
-        <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
-      </li>
-    `
-  } else {
-    console.log('missing star rating');
-  }
-}
-
 
 const pageControls = {
-  displayTestimonial: function (randomNumberBtw, numberOfStars) {
+  displayTestimonial: function (randomTestimonial) {
+
+    let starRating = testimonialData[randomTestimonial].rating;
+    let starListHTML = ''
+
+    for (let i = 0; i < starRating; i++) {
+
+      starListHTML += `
+        <li>
+          <img class="star" src="https://www.londonstone.co.uk/skin/frontend/londonstone/default/images/chrome/star.svg">
+        </li>
+      `
+    }
+
     document.getElementById('testimonial').innerHTML = `
       <div class="image-cont">
-        <img class="image" src="${testimonialData[randomNumberBtw].imageSrc}" alt="${testimonialData[randomNumberBtw].fullName}">
+        <img class="image" src="${testimonialData[randomTestimonial].imageSrc}" alt="${testimonialData[randomTestimonial].fullName}">
       </div>
       <div class="test-cont">
         <ul class="star-list">
-
+          ${starListHTML}
         </ul>
-
         <blockquote>
-          <p class="quote">'${testimonialData[randomNumberBtw].fullText}'</p>
+          <p class="quote">'${testimonialData[randomTestimonial].fullText}'</p>
           <footer>
             <cite>
-              <a class="name" href="${testimonialData[randomNumberBtw].link}" target=_blank>${testimonialData[randomNumberBtw].fullName} | ${testimonialData[randomNumberBtw].link.slice(8)}</a>
+              <a class="name" href="${testimonialData[randomTestimonial].link}" target=_blank>${testimonialData[randomTestimonial].fullName} | ${testimonialData[randomTestimonial].link.slice(8)}</a>
             </cite>
           </footer>
         </blockquote>
@@ -135,9 +75,17 @@ const pageControls = {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  pageControls.displayTestimonial(getRandomTestimonial(5), getStarRating(randomNum)); // change to getRandomTestimoninal(10) to get random testimonial from array of 10
-  renderStars(stars);
+  pageControls.displayTestimonial(getRandomTestimonial());
 });
+
+
+
+
+
+
+
+
+
 
 
 
